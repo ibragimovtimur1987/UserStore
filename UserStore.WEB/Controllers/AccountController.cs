@@ -39,7 +39,7 @@ namespace UserStore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginModel model)
         {
-            await SetInitialDataAsync();
+          //  await SetInitialDataAsync();
 
             if (ModelState.IsValid)
             {
@@ -66,7 +66,7 @@ namespace UserStore.Controllers
         public ActionResult Logout()
         {
             AuthenticationManager.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         public ActionResult Register()
@@ -78,7 +78,7 @@ namespace UserStore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterModel model)
         {
-            await SetInitialDataAsync();
+           // await SetInitialDataAsync();
 
             if (ModelState.IsValid)
             {
@@ -92,24 +92,28 @@ namespace UserStore.Controllers
                 };
                 OperationDetails operationDetails = await UserService.Create(userDto);
                 if (operationDetails.Succedeed)
-                    return View("SuccessRegister");
+                {
+                    int? par = 1;
+                    return
+                    RedirectToAction("Index", "Video", par);
+                }
                 else
                     ModelState.AddModelError(operationDetails.Property, operationDetails.Message);
             }
             return View(model);
         }
 
-        private async Task SetInitialDataAsync()
-        {
-            await UserService.SetInitialData(new UserDTO
-            {
-                Email = "somemail@mail.ru",
-                UserName = "somemail@mail.ru",
-                Password = "ad46D_ewr3",
-                Name = "Семен Семенович Горбунков",
-                Address = "ул. Спортивная, д.30, кв.75",
-                Role = "admin",
-            }, new List<string> { "user", "admin" });
-        }
+        //private async Task SetInitialDataAsync()
+        //{
+        //    //await UserService.SetInitialData(new UserDTO
+        //    //{
+        //    //    Email = "somemail@mail.ru",
+        //    //    UserName = "somemail@mail.ru",
+        //    //    Password = "ad46D_ewr3",
+        //    //    Name = "Семен Семенович Горбунков",
+        //    //    Address = "ул. Спортивная, д.30, кв.75",
+        //    //    Role = "admin",
+        //    //}, new List<string> { "user", "admin" });
+        //}
     }
 }
