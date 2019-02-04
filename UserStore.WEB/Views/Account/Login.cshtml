@@ -1,8 +1,6 @@
 ﻿@model UserStore.Models.LoginModel
 
-@{
-    ViewBag.Title = "Login";
-}
+
 
 <h2>Login</h2>
 
@@ -12,7 +10,6 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>LoginModel</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -33,15 +30,15 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Войти" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+    <div>
+        @Html.ActionLink("Регистрация", "Register", "Account")
+    </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

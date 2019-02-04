@@ -21,7 +21,7 @@ namespace UserStore.Web.Controllers
                 return HttpContext.GetOwinContext().GetUserManager<IUserService>();
             }
         }
-            public ActionResult Index(int? page)
+        public ActionResult Index(int? page)
         {
             int pageSize = 10;
             int pageNumber = (page ?? 1);
