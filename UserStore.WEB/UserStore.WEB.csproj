@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -80,6 +81,12 @@
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -155,6 +162,7 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\VideoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -165,6 +173,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -200,6 +209,10 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\SuccessRegister.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Video\Create.cshtml" />
+    <Content Include="Views\Video\Details.cshtml" />
+    <Content Include="Views\Video\Edit.cshtml" />
+    <Content Include="Views\Video\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -216,6 +229,10 @@
     <ProjectReference Include="..\UserStore.BLL\UserStore.BLL.csproj">
       <Project>{e7d185da-e5db-4e1b-8958-930429f6d310}</Project>
       <Name>UserStore.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UserStore.DAL\UserStore.DAL.csproj">
+      <Project>{c7fc9eb3-7680-4d0d-826c-913867fb8f96}</Project>
+      <Name>UserStore.DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

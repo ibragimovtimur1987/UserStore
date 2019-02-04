@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Threading.Tasks;
 using UserStore.DAL.Identity;
+using UserStore.Data.Interfaces;
 
 namespace UserStore.DAL.Repositories
 {
@@ -15,7 +16,7 @@ namespace UserStore.DAL.Repositories
         private ApplicationUserManager userManager;
         private ApplicationRoleManager roleManager;
         private IClientManager clientManager;
-
+        private VideoRepository videoRepository;
         public IdentityUnitOfWork(string connectionString)
         {
             db = new ApplicationContext(connectionString);
@@ -23,7 +24,15 @@ namespace UserStore.DAL.Repositories
             roleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(db));
             clientManager = new ClientManager(db);
         }
-
+        public IRepository<Video> Videos
+        {
+            get
+            {
+                if (videoRepository == null)
+                    videoRepository = new VideoRepository(db);
+                return videoRepository;
+            }
+        }
         public ApplicationUserManager UserManager
         {
             get { return userManager; }
@@ -63,6 +72,10 @@ namespace UserStore.DAL.Repositories
                 }
                 this.disposed = true;
             }
+        }
+        public void Save()
+        {
+            db.SaveChanges();
         }
     }
 }

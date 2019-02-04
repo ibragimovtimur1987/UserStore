@@ -56,7 +56,8 @@ namespace UserStore.Controllers
                     {
                         IsPersistent = true
                     }, claim);
-                    return RedirectToAction("Index", "Home");
+                    int? par = 1;
+                    return RedirectToAction("Index", "Video", par);
                 }
             }
             return View(model);

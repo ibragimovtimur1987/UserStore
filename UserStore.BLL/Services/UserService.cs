@@ -7,6 +7,7 @@ using System.Security.Claims;
 using UserStore.BLL.Interfaces;
 using UserStore.DAL.Interfaces;
 using System.Collections.Generic;
+using System;
 
 namespace UserStore.BLL.Services
 {
@@ -68,7 +69,28 @@ namespace UserStore.BLL.Services
 
             await Create(adminDto);
         }
-
+        public IEnumerable<Video> GetVideos()
+        {
+            return Database.Videos.GetAll();
+        }
+        public void UpdateVideo(Video video)
+        {
+            if (video == null)
+                throw new Exception("Видео не найдено");
+            Database.Videos.Update(video);
+            Database.Save();
+        }
+        public void AddVideo(Video video)
+        {
+            Database.Videos.Create(video);
+            Database.Save();
+        }
+        public Video GetVideo(int? id)
+        {
+            if (id == null)
+                throw new Exception("Видео не найдено");
+            return Database.Videos.Get(id.Value);
+        }
         public void Dispose()
         {
             Database.Dispose();
