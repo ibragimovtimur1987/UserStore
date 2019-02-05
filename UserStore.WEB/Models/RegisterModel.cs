@@ -9,11 +9,14 @@ namespace UserStore.Models
 {
     public class RegisterModel
     {
+        [Display(Name = "Почтовый ящик")]
         [Required]
         public string Email { get; set; }
+        [Display(Name = "Пароль")]
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+        [Display(Name = "Повтор пароля")]
         [Required]
         [DataType(DataType.Password)]
         [Compare("Password")]

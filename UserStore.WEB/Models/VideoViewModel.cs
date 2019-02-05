@@ -11,21 +11,26 @@ namespace UserStore.Models
     public class VideoViewModel
     {
         public int Id { get; set; }
+        [Display(Name = "Название")]
         [Required]
         public string Title { get; set; }
+        [Display(Name = "Описание")]
         [Required]
         public string Note { get; set; }
+        [Display(Name = "Режиссёр")]
         [Required]
         public string Producer { get; set; }
+        [Display(Name = "Год выпуска")]
         [Required]
         public int? Year { get; set; }
+        [Display(Name = "Постер")]
         [Required]
         public byte[] Poster{ get; set; }
 
         public string ContentPath { get; set; }
 
         public ApplicationUser Author { get; set; }
-
+        [Display(Name = "Опубликовал")]
         public string AuthorUserName { get; set; }
 
         public bool IsAuthor { get; set; }
