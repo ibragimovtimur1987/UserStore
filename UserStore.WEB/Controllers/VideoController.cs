@@ -8,6 +8,10 @@ using PagedList;
 using PagedList.Mvc;
 using UserStore.DAL.Entities;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
+using System.IO;
+using UserStore.Models;
+using AutoMapper;
 
 namespace UserStore.Web.Controllers
 {
@@ -48,8 +52,17 @@ namespace UserStore.Web.Controllers
         // Добавление
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Video video)
+        public ActionResult Create(VideoViewModel videoViewModel)
         {
+            HttpPostedFileBase httpPostedFile = HttpContext.Request.Files[0];
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<VideoViewModel, Video>()).CreateMapper();
+            Video video = mapper.Map<VideoViewModel, Video>(videoViewModel);
+            video.Author = videoService.GetApplicationUser(User.Identity.GetUserId());
+            // считываем переданный файл в массив байтов
+            using (var binaryReader = new BinaryReader(httpPostedFile.InputStream))
+            {
+                video.Poster = binaryReader.ReadBytes(httpPostedFile.ContentLength);
+            }
             videoService.AddVideo(video);
             return RedirectToAction("Index");
         }
@@ -60,6 +73,24 @@ namespace UserStore.Web.Controllers
         {
             videoService.UpdateVideo(video);
             return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public ActionResult CreatePoster(Video video, HttpPostedFileBase uploadImage)
+        {
+            if (ModelState.IsValid && uploadImage != null)
+            {
+                byte[] imageData = null;
+                // считываем переданный файл в массив байтов
+                using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+                {
+                    imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+                }
+                // установка массива байтов
+                video.Poster = imageData;
+                videoService.UpdateVideo(video);
+                return RedirectToAction("Index");
+            }
+            return View(video);
         }
     }
 }

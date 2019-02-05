@@ -53,22 +53,11 @@ namespace UserStore.BLL.Services
                                             DefaultAuthenticationTypes.ApplicationCookie);
             return claim;
         }
-
-        //// начальная инициализация бд
-        //public async Task SetInitialData(UserDTO adminDto, List<string> roles)
-        //{
-        //    foreach (string roleName in roles)
-        //    {
-        //        var role = await Database.RoleManager.FindByNameAsync(roleName);
-        //        if (role == null)
-        //        {
-        //            role = new ApplicationRole { Name = roleName };
-        //            await Database.RoleManager.CreateAsync(role);
-        //        }
-        //    }
-
-        //    await Create(adminDto);
-        //}
+        public ApplicationUser GetApplicationUser(string UserId)
+        {
+            // находим пользователя
+            return Database.UserManager.FindById(UserId);
+        }
         public IEnumerable<Video> GetVideos()
         {
             return Database.Videos.GetAll();
@@ -82,6 +71,7 @@ namespace UserStore.BLL.Services
         }
         public void AddVideo(Video video)
         {
+            video.Author = videoService.GetApplicationUser(User.Identity.GetUserId());
             Database.Videos.Create(video);
             Database.Save();
         }

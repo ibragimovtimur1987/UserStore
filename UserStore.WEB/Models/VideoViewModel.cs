@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace UserStore.DAL.Entities
+namespace UserStore.Models
 {
-    public class Video
+    public class VideoViewModel
     {
         public int Id { get; set; }
 
@@ -16,7 +15,7 @@ namespace UserStore.DAL.Entities
 
         public string Producer { get; set; }
 
-        public ApplicationUser Author { get; set; }
+        public int ApplicationUserId { get; set; }
 
         public int? Year { get; set; }
 

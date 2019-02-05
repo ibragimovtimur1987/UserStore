@@ -14,7 +14,7 @@
 <body>
     <h2>Список фильмов</h2>
     @Html.ActionLink("Добавить фильм", "Create", "Video",
-                           new { @class = "viewDialog",  data_dialog_title = "Добавление фильма" }) |
+                           new { @class = "viewDialog",  data_dialog_title = "Добавление фильма" })
     <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
         <thead>
             <tr>
@@ -33,7 +33,7 @@
                     <td>@video.Note</td>
                     <td>@video.Year</td>
                     <td>@video.Producer</td>
-                    <td>@video.Author</td>
+                    <td>@video.Author.UserName</td>
                     <td>
                         @Html.ActionLink("Смотреть", "Details", "Video", new { id = video.Id },
                             new { @class = "viewDialog",  data_dialog_title = "Описание фильма" }) |

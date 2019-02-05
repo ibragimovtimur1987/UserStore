@@ -86,8 +86,6 @@ namespace UserStore.Controllers
                 {
                     Email = model.Email,
                     Password = model.Password,
-                    Address = model.Address,
-                    Name = model.Name,
                     Role = "user"
                 };
                 OperationDetails operationDetails = await UserService.Create(userDto);

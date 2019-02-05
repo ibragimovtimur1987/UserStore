@@ -21,12 +21,12 @@ namespace UserStore.DAL.Repositories
 
         public IEnumerable<Video> GetAll()
         {
-            return db.Videos;
+            return db.Videos.Include("Author");
         }
 
         public Video Get(int id)
         {
-            return db.Videos.Find(id);
+            return db.Videos.Include("Author").FirstOrDefault(x=>x.Id == id);
         }
 
         public void Create(Video video)
