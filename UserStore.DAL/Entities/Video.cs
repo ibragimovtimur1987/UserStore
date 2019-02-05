@@ -20,8 +20,8 @@ namespace UserStore.DAL.Entities
 
         public int? Year { get; set; }
 
-        public byte[] Poster { get; set; }
+        public string PosterPath { get; set; }
 
-        public byte[] Content { get; set; }
+        public string ContentPath { get; set; }
     }
 }

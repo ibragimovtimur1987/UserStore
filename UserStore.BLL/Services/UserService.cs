@@ -8,6 +8,8 @@ using UserStore.BLL.Interfaces;
 using UserStore.DAL.Interfaces;
 using System.Collections.Generic;
 using System;
+using System.Web;
+using System.IO;
 
 namespace UserStore.BLL.Services
 {
@@ -69,9 +71,12 @@ namespace UserStore.BLL.Services
             Database.Videos.Update(video);
             Database.Save();
         }
-        public void AddVideo(Video video)
+        public void AddVideo(Video video,string currentUserId, HttpPostedFileBase file)
         {
-            video.Author = videoService.GetApplicationUser(User.Identity.GetUserId());
+            video.Author = GetApplicationUser(currentUserId);
+            string pathPoster = AppDomain.CurrentDomain.BaseDirectory + Constants.Path.PathPoster;
+            AddPosterFile(file, pathPoster);
+            video.PosterPath = pathPoster;
             Database.Videos.Create(video);
             Database.Save();
         }
@@ -85,6 +90,21 @@ namespace UserStore.BLL.Services
         {
             Database.Dispose();
         }
+        private void AddPosterFile(HttpPostedFileBase file, string pathPoster)
+        {
+            if (file != null)
+            {           
+                AddFile(file, pathPoster);
+            }
+        }
+        private void AddFile(HttpPostedFileBase file,string pathServer)
+        {
+                // получаем имя файла
+                string fileName = System.IO.Path.GetFileName(file.FileName);
+                    // сохраняем файл в папку Files в проекте
+                    file.SaveAs(Path.Combine(pathServer, fileName));
+        }
+
     }
 
     
