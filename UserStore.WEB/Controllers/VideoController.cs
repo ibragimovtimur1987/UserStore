@@ -30,7 +30,8 @@ namespace UserStore.Web.Controllers
         {
             int pageSize = 10;
             int pageNumber = (page ?? 1);
-            List<VideoViewModel> videoViews = videoService.GetVideos().Select(x=>new VideoViewModel(x)).ToList();
+            var currentUser = User.Identity.GetUserId();
+            List<VideoViewModel> videoViews = videoService.GetVideos().Select(x=>new VideoViewModel(x, currentUser)).ToList();
             return View(videoViews.ToPagedList(pageNumber, pageSize));
         }
         public ActionResult Details(int id)

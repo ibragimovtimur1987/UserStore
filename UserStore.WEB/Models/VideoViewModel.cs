@@ -26,11 +26,26 @@ namespace UserStore.Models
 
         public ApplicationUser Author { get; set; }
 
+        public string AuthorUserName { get; set; }
+
+        public bool IsAuthor { get; set; }
+
         public VideoViewModel()
         {
 
         }
         public VideoViewModel(Video video)
+        {
+            FillFields(video);
+        }
+
+        public VideoViewModel(Video video,string currentUserId)
+        {
+            FillFields(video);
+            IsAuthor = Author?.Id == currentUserId;
+        }
+
+        private void FillFields(Video video)
         {
             Id = video.Id;
             Title = video.Title;
@@ -39,8 +54,10 @@ namespace UserStore.Models
             Year = video.Year;
             Poster = video.Poster;
             ContentPath = video.ContentPath;
-            Author = video.Author;
+            Author = video?.Author;
+            AuthorUserName = video?.Author?.UserName;
         }
+
         public Video GetVideo()
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<VideoViewModel, Video>()).CreateMapper();

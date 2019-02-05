@@ -74,8 +74,7 @@ namespace UserStore.BLL.Services
         }
         public void AddVideo(Video video,string currentUserId, HttpPostedFileBase file)
         {
-            var user =Database.Users.Get(currentUserId);
-            video.Author = user;
+            video.Author = GetApplicationUser(currentUserId);
             video.Poster = file.InputStream.ToBytes() ;
             Database.Videos.Create(video);
             Database.Save();
