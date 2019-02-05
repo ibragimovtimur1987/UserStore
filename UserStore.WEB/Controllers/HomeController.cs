@@ -21,7 +21,8 @@ namespace UserStore.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            int? par = 1;
+            return RedirectToAction("Index", "Video", par);
         }
         [Authorize(Roles="admin")]
         public ActionResult About()

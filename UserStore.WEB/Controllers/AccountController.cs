@@ -91,9 +91,8 @@ namespace UserStore.Controllers
                 OperationDetails operationDetails = await VideoService.Create(userDto);
                 if (operationDetails.Succedeed)
                 {
-                    int? par = 1;
-                    return
-                    RedirectToAction("Index", "Video", par);
+                        int? par = 1;
+                    return View("SuccessRegister");
                 }
                 else
                     ModelState.AddModelError(operationDetails.Property, operationDetails.Message);

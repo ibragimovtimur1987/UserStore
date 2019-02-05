@@ -29,11 +29,12 @@ namespace UserStore.BLL.Services
             {
                 user = new ApplicationUser { Email = userDto.Email, UserName = userDto.Email };
                 await Database.UserManager.CreateAsync(user, userDto.Password);
+              
                 // добавляем роль
-              //  await Database.UserManager.AddToRoleAsync(user.Id, userDto.Role);
+                //  await Database.UserManager.AddToRoleAsync(user.Id, userDto.Role);
                 // создаем профиль клиента
-              //  ClientProfile clientProfile = new ClientProfile { Id = user.Id, Address = userDto.Address, Name = userDto.Name };
-              //  Database.ClientManager.Create(clientProfile);
+                //  ClientProfile clientProfile = new ClientProfile { Id = user.Id, Address = userDto.Address, Name = userDto.Name };
+                //  Database.ClientManager.Create(clientProfile);
                 await Database.SaveAsync();
                 return new OperationDetails(true, "Регистрация успешно пройдена", "");
 
