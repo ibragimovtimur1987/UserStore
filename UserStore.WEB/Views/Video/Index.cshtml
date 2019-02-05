@@ -41,9 +41,9 @@
                         new { @class = "viewDialog",  data_dialog_title = "Описание фильма" }) |
                     @if (video.IsAuthor)
                     {
-                        Html.ActionLink("Изменить", "Edit", "Video", new { id = video.Id },
+                        @Html.ActionLink("Изменить", "Edit", "Video", new { id = video.Id },
                           new { @class = "viewDialog", data_dialog_title = "Редактирование фильма" });
-                    }|
+                    }
                 </td>
             </tr>
             }
