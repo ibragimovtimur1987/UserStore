@@ -32,11 +32,11 @@ namespace UserStore.Web.Controllers
             List<VideoViewModel> videoViews = videoService.GetVideos().Select(x=>new VideoViewModel(x)).ToList();
             return View(videoViews.ToPagedList(pageNumber, pageSize));
         }
-        //// Просмотр подробных сведений о книге
         public ActionResult Details(int id)
         {
             Video video = videoService.GetVideo(id);
-            return PartialView("Details", video);
+            VideoViewModel videoViewModel = new VideoViewModel(video);
+            return PartialView("Details", videoViewModel);
         }
         // Добавление
         public ActionResult Create()
@@ -47,7 +47,8 @@ namespace UserStore.Web.Controllers
         public ActionResult Edit(int id)
         {
             Video video = videoService.GetVideo(id);
-            return PartialView("Edit", video);
+            VideoViewModel videoViewModel = new VideoViewModel(video);
+            return PartialView("Edit", videoViewModel);
         }
         // Добавление
         [HttpPost]

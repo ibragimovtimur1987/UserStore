@@ -10,7 +10,7 @@ namespace UserStore.BLL
     {
         public static class Path
         {
-            public static string PathPoster = "App_Data/uploads/poster";
+            public static string PathPoster = @"App_Data\uploads\poster";
         }
     }
 }

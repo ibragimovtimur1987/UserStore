@@ -23,24 +23,26 @@
                 <th>Год выпуска</th>
                 <th>Режиссёр</th>
                 <th>Опубликовал</th>
+                <th>Постер</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var video in Model)
             {
-                <tr>
-                    <td>@video.Title</td>
-                    <td>@video.Note</td>
-                    <td>@video.Year</td>
-                    <td>@video.Producer</td>
-                    <td>@video.Author.UserName</td>
-                    <td>
-                        @Html.ActionLink("Смотреть", "Details", "Video", new { id = video.Id },
-                            new { @class = "viewDialog",  data_dialog_title = "Описание фильма" }) |
-                        @Html.ActionLink("Изменить", "Edit", "Video", new { id = video.Id },
-                            new { @class = "viewDialog", data_dialog_title = "Редактирование фильма" }) |
-                    </td>
-                </tr>
+            <tr>
+                <td>@video.Title</td>
+                <td>@video.Note</td>
+                <td>@video.Year</td>
+                <td>@video.Producer</td>
+                <td>@video.Author&.UserName</td>
+                <td><img src="data:image;base64,@System.Convert.ToBase64String(video.Poster)" width="80" height="80" /></td>
+                <td>
+                    @Html.ActionLink("Смотреть", "Details", "Video", new { id = video.Id },
+                        new { @class = "viewDialog",  data_dialog_title = "Описание фильма" }) |
+                    @Html.ActionLink("Изменить", "Edit", "Video", new { id = video.Id },
+                        new { @class = "viewDialog", data_dialog_title = "Редактирование фильма" }) |
+                </td>
+            </tr>
             }
         </tbody>
     </table>

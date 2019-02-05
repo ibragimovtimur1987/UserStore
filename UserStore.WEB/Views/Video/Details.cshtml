@@ -46,11 +46,11 @@
             @Html.DisplayFor(model => model.Year)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.PosterPath)
+            @Html.DisplayNameFor(model => model.Poster)
         </dt>
 
         <dd>
-            <img src="@Url.Content(Model.PosterPath)" alt="" />
+            <img src="data:image;base64,@System.Convert.ToBase64String(Model.Poster)" width="80" height="80" />
         </dd>
 
     </dl>
