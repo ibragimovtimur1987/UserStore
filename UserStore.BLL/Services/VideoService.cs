@@ -56,17 +56,18 @@ namespace UserStore.BLL.Services
         {
             return Database.Videos.GetAll();
         }
-        public void UpdateVideo(Video video)
+        public void UpdateVideo(Video video, HttpPostedFileBase file)
         {
             if (video == null)
                 throw new Exception("Видео не найдено");
+            if(file!=null) video.Poster = file.InputStream.ToBytes();
             Database.Videos.Update(video);
             Database.Save();
         }
         public void AddVideo(Video video,string currentUserId, HttpPostedFileBase file)
         {
             video.Author = GetApplicationUser(currentUserId);
-            video.Poster = file.InputStream.ToBytes() ;
+            if (file != null) video.Poster = file.InputStream.ToBytes() ;
             Database.Videos.Create(video);
             Database.Save();
         }

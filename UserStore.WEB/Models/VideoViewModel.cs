@@ -64,7 +64,7 @@ namespace UserStore.Models
             AuthorUserName = video?.Author?.UserName;
         }
 
-        public Video GetVideo()
+        public Video CreateVideo()
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<VideoViewModel, Video>()).CreateMapper();
             return mapper.Map<VideoViewModel, Video>(this);

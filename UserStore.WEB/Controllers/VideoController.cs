@@ -49,27 +49,28 @@ namespace UserStore.Web.Controllers
         // Добавление
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(VideoViewModel videoViewModel)
+        public ActionResult Create(VideoViewModel videoViewModel, HttpPostedFileBase file)
         {
-            HttpPostedFileBase httpPostedFile = HttpContext.Request.Files[0];
-            Video video = videoViewModel.GetVideo();
-            videoService.AddVideo(video, User.Identity.GetUserId(), httpPostedFile);
+            Video video = videoViewModel.CreateVideo();
+            videoService.AddVideo(video, User.Identity.GetUserId(), file);
             return RedirectToAction("Index");
         }
         // Редактирование
         public ActionResult Edit(int id)
         {
             Video video = videoService.GetVideo(id);
+            Session["Poster"] = video.Poster;
             VideoViewModel videoViewModel = new VideoViewModel(video);
             return PartialView("Edit", videoViewModel);
         }
         //// Редактирование
         [HttpPost]
         [ValidateAntiForgeryToken]       
-        public ActionResult Edit(VideoViewModel videoViewModel)
+        public ActionResult Edit(VideoViewModel videoViewModel, HttpPostedFileBase file)
         {
-            Video video = videoViewModel.GetVideo();
-            videoService.UpdateVideo(video);
+            Video video = videoViewModel.CreateVideo();
+            if (file == null && Session["Poster"]!=null) video.Poster = (byte[])Session["Poster"];
+            videoService.UpdateVideo(video, file);
             return RedirectToAction("Index");
         }
     }
