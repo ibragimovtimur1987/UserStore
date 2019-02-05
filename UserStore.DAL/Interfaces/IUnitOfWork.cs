@@ -9,9 +9,9 @@ namespace UserStore.DAL.Interfaces
     public interface IUnitOfWork : IDisposable
     {
         ApplicationUserManager UserManager { get; }
-        IClientManager ClientManager { get; }
         ApplicationRoleManager RoleManager { get; }
-        IRepository<Video> Videos { get; }
+        IRepository<Video,int> Videos { get; }
+        IRepository<ApplicationUser,string> Users { get; }
         Task SaveAsync();
         void Save();
     }

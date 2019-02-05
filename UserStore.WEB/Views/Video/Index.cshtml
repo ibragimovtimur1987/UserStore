@@ -34,7 +34,7 @@
                 <td>@video.Note</td>
                 <td>@video.Year</td>
                 <td>@video.Producer</td>
-                <td>@video.Author&.UserName</td>
+                <td>@(video.Author != null?video.Author.UserName:"")</td>
                 <td><img src="data:image;base64,@System.Convert.ToBase64String(video.Poster)" width="80" height="80" /></td>
                 <td>
                     @Html.ActionLink("Смотреть", "Details", "Video", new { id = video.Id },
@@ -50,29 +50,6 @@
     Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
 
     @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
-    @*<p> @Html.ActionLink("Добавить", "Create", "Home", new { }, new { @class = "viewDialog", data_dialog_title = "Создание модели" })</p>*@
-
-    @*<script src='@Url.Content("~/Scripts/jquery-1.12.4.min.js")' type="text/javascript"></script>
-        <script src='@Url.Content("~/Scripts/jquery-ui-1.12.1.min.js")' type="text/javascript"></script>*@
-    @*<script>
-        $(document).ready(function () {
-
-            $.ajaxSetup({ cache: false });
-
-            $(".viewDialog").on("click", function (e) {
-                e.preventDefault();
-
-                $("<div></div>")
-                    .addClass("dialog")
-                    .appendTo("body")
-                    .dialog({
-                        title: $(this).attr("data-dialog-title"),
-                         close: function () { $(this).remove() },
-                        modal: true
-                    })
-                    .load(this.href);
-            });
-        });
-        </script>*@
+   
 </body>
 </html>

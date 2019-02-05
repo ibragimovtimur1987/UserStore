@@ -15,16 +15,15 @@ namespace UserStore.DAL.Repositories
 
         private ApplicationUserManager userManager;
         private ApplicationRoleManager roleManager;
-        private IClientManager clientManager;
         private VideoRepository videoRepository;
+        private UserRepository userRepository;
         public IdentityUnitOfWork(string connectionString)
         {
             db = new ApplicationContext(connectionString);
             userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(db));
             roleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(db));
-            clientManager = new ClientManager(db);
         }
-        public IRepository<Video> Videos
+        public IRepository<Video,int> Videos
         {
             get
             {
@@ -38,15 +37,20 @@ namespace UserStore.DAL.Repositories
             get { return userManager; }
         }
 
-        public IClientManager ClientManager
-        {
-            get { return clientManager; }
-        }
-
         public ApplicationRoleManager RoleManager
         {
             get { return roleManager; }
         }
+        public IRepository<ApplicationUser, string> Users
+        {
+            get
+            {
+                if (userRepository == null)
+                    userRepository = new UserRepository(db);
+                return userRepository;
+            }
+        }
+        
 
         public async Task SaveAsync()
         {
@@ -68,7 +72,6 @@ namespace UserStore.DAL.Repositories
                 {
                     userManager.Dispose();
                     roleManager.Dispose();
-                    clientManager.Dispose();
                 }
                 this.disposed = true;
             }

@@ -13,11 +13,11 @@ using System.IO;
 
 namespace UserStore.BLL.Services
 {
-    public class UserService : IUserService
+    public class VideoService : IVideoService
     {
         IUnitOfWork Database { get; set; }
 
-        public UserService(IUnitOfWork uow)
+        public VideoService(IUnitOfWork uow)
         {
             Database = uow;
         }
@@ -73,9 +73,8 @@ namespace UserStore.BLL.Services
         }
         public void AddVideo(Video video,string currentUserId, HttpPostedFileBase file)
         {
-            // var user = GetApplicationUser(currentUserId);
-            ApplicationUser currentUser = Database.UserManager.FindById<ApplicationUser, string>(currentUserId);
-            video.Author = currentUser;
+            var user =Database.Users.Get(currentUserId);
+            video.Author = user;
             video.Poster = file.InputStream.ToBytes() ;
             Database.Videos.Create(video);
             Database.Save();

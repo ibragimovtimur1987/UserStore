@@ -10,7 +10,7 @@ using UserStore.Data.Interfaces;
 
 namespace UserStore.DAL.Repositories
 {
-    public class VideoRepository : IRepository<Video>
+    public class VideoRepository : IRepository<Video,int>
     {
         private ApplicationContext db;
 

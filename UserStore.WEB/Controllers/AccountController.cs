@@ -14,11 +14,11 @@ namespace UserStore.Controllers
 {
     public class AccountController : Controller
     {
-        private IUserService UserService
+        private IVideoService VideoService
         {
             get
             {
-                return HttpContext.GetOwinContext().GetUserManager<IUserService>();
+                return HttpContext.GetOwinContext().GetUserManager<IVideoService>();
             }
         }
 
@@ -44,7 +44,7 @@ namespace UserStore.Controllers
             if (ModelState.IsValid)
             {
                 UserDTO userDto = new UserDTO { Email = model.Email, Password = model.Password};
-                ClaimsIdentity claim = await UserService.Authenticate(userDto);
+                ClaimsIdentity claim = await VideoService.Authenticate(userDto);
                 if (claim == null)
                 {
                     ModelState.AddModelError("", "Неверный логин или пароль.");
@@ -88,7 +88,7 @@ namespace UserStore.Controllers
                     Password = model.Password,
                     Role = "user"
                 };
-                OperationDetails operationDetails = await UserService.Create(userDto);
+                OperationDetails operationDetails = await VideoService.Create(userDto);
                 if (operationDetails.Succedeed)
                 {
                     int? par = 1;

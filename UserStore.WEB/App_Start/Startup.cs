@@ -14,7 +14,7 @@ namespace UserStore.App_Start
         IServiceCreator serviceCreator = new ServiceCreator();
         public void Configuration(IAppBuilder app)
         {
-            app.CreatePerOwinContext<IUserService>(CreateUserService);
+            app.CreatePerOwinContext<IVideoService>(CreateUserService);
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
@@ -22,7 +22,7 @@ namespace UserStore.App_Start
             });
         }
 
-        private IUserService CreateUserService()
+        private IVideoService CreateUserService()
         {
             return serviceCreator.CreateUserService("DefaultConnection");
         }

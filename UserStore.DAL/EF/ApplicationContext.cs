@@ -12,7 +12,6 @@ namespace UserStore.DAL.EF
             Database.SetInitializer<ApplicationContext>(new StoreDbInitializer());
         }
         public DbSet<Video> Videos { get; set; }
-        public DbSet<ClientProfile> ClientProfiles { get; set; }
         public class StoreDbInitializer : DropCreateDatabaseIfModelChanges<ApplicationContext>
         {
             protected override void Seed(ApplicationContext db)

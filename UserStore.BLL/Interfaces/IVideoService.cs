@@ -9,7 +9,7 @@ using UserStore.DAL.Entities;
 
 namespace UserStore.BLL.Interfaces
 {
-    public interface IUserService : IDisposable
+    public interface IVideoService : IDisposable
     {
         Task<OperationDetails> Create(UserDTO userDto);
         Task<ClaimsIdentity> Authenticate(UserDTO userDto);

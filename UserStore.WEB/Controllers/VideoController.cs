@@ -15,14 +15,15 @@ using AutoMapper;
 
 namespace UserStore.Web.Controllers
 {
+    [Authorize]
     public class VideoController : Controller
     {
         // GET: Video
-        private IUserService videoService
+        private IVideoService videoService
         {
             get
             {
-                return HttpContext.GetOwinContext().GetUserManager<IUserService>();
+                return HttpContext.GetOwinContext().GetUserManager<IVideoService>();
             }
         }
         public ActionResult Index(int? page)

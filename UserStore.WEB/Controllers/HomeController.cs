@@ -11,11 +11,11 @@ namespace UserStore.Controllers
 {
     public class HomeController : Controller
     {
-        private IUserService UserService
+        private IVideoService UserService
         {
             get
             {
-                return HttpContext.GetOwinContext().GetUserManager<IUserService>();
+                return HttpContext.GetOwinContext().GetUserManager<IVideoService>();
             }
         }
 
