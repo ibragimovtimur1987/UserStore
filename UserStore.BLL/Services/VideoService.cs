@@ -21,30 +21,21 @@ namespace UserStore.BLL.Services
         {
             Database = uow;
         }
-
         public async Task<OperationDetails> Create(UserDTO userDto)
         {
             ApplicationUser user = await Database.UserManager.FindByEmailAsync(userDto.Email);
             if (user == null)
             {
                 user = new ApplicationUser { Email = userDto.Email, UserName = userDto.Email };
-                await Database.UserManager.CreateAsync(user, userDto.Password);
-              
-                // добавляем роль
-                //  await Database.UserManager.AddToRoleAsync(user.Id, userDto.Role);
-                // создаем профиль клиента
-                //  ClientProfile clientProfile = new ClientProfile { Id = user.Id, Address = userDto.Address, Name = userDto.Name };
-                //  Database.ClientManager.Create(clientProfile);
+                await Database.UserManager.CreateAsync(user, userDto.Password);           
                 await Database.SaveAsync();
                 return new OperationDetails(true, "Регистрация успешно пройдена", "");
-
             }
             else
             {
                 return new OperationDetails(false, "Пользователь с таким логином уже существует", "Email");
             }
         }
-
         public async Task<ClaimsIdentity> Authenticate(UserDTO userDto)
         {
             ClaimsIdentity claim = null;
@@ -89,27 +80,5 @@ namespace UserStore.BLL.Services
         {
             Database.Dispose();
         }
-        //private string AddPosterFile(HttpPostedFileBase file)
-        //{
-        //    if (file != null)
-        //    {
-        //        using (var writer = new BinaryWriter(file.InputStream))
-        //        {
-        //            writer.Write(bytes);
-        //        }
-            
-        //    var fileContent =;
-        //        //string pathPoster = AppDomain.CurrentDomain.BaseDirectory + Constants.Path.PathPoster;
-        //        //// получаем имя файла
-        //        //string fileName = System.IO.Path.GetFileName(file.FileName);
-        //        //string pathFile = Path.Combine(pathPoster, fileName);
-        //        //file.SaveAs(pathFile);
-        //        //return Constants.Path.PathPoster + file.FileName;
-        //    }
-        //    return "";
-        //}
-
-    }
-
-    
+    } 
 }

@@ -13,7 +13,6 @@ namespace UserStore.BLL.Interfaces
     {
         Task<OperationDetails> Create(UserDTO userDto);
         Task<ClaimsIdentity> Authenticate(UserDTO userDto);
-        //Task SetInitialData(UserDTO adminDto, List<string> roles);
         void AddVideo(Video video, string currentUserId, HttpPostedFileBase file);
         void UpdateVideo(Video videoDTO);
         Video GetVideo(int? id);

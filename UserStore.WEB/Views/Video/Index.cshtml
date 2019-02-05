@@ -38,10 +38,10 @@
                 <td><img src="data:image;base64,@System.Convert.ToBase64String(video.Poster)" width="80" height="80" /></td>
                 <td>
                     @Html.ActionLink("Смотреть", "Details", "Video", new { id = video.Id },
-                        new { @class = "viewDialog",  data_dialog_title = "Описание фильма" }) |
+                        new { @class = "viewDialog",  data_dialog_title = "Описание фильма" }) 
                     @if (video.IsAuthor)
                     {
-                        @Html.ActionLink("Изменить", "Edit", "Video", new { id = video.Id },
+                          @Html.ActionLink("Изменить", "Edit", "Video", new { id = video.Id },
                           new { @class = "viewDialog", data_dialog_title = "Редактирование фильма" });
                     }
                 </td>
