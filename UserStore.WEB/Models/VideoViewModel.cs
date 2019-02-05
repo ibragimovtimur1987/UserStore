@@ -30,6 +30,7 @@ namespace UserStore.Models
         public string ContentPath { get; set; }
 
         public ApplicationUser Author { get; set; }
+
         [Display(Name = "Опубликовал")]
         public string AuthorUserName { get; set; }
 

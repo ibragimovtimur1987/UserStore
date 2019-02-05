@@ -34,6 +34,7 @@ namespace UserStore.Web.Controllers
             List<VideoViewModel> videoViews = videoService.GetVideos().Select(x=>new VideoViewModel(x, currentUser)).ToList();
             return View(videoViews.ToPagedList(pageNumber, pageSize));
         }
+        // Просмотр
         public ActionResult Details(int id)
         {
             Video video = videoService.GetVideo(id);
@@ -44,14 +45,7 @@ namespace UserStore.Web.Controllers
         public ActionResult Create()
         {
             return PartialView("Create");
-        }
-        // Редактирование
-        public ActionResult Edit(int id)
-        {
-            Video video = videoService.GetVideo(id);
-            VideoViewModel videoViewModel = new VideoViewModel(video);
-            return PartialView("Edit", videoViewModel);
-        }
+        }    
         // Добавление
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -62,10 +56,16 @@ namespace UserStore.Web.Controllers
             videoService.AddVideo(video, User.Identity.GetUserId(), httpPostedFile);
             return RedirectToAction("Index");
         }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        // Редактирование
+        public ActionResult Edit(int id)
+        {
+            Video video = videoService.GetVideo(id);
+            VideoViewModel videoViewModel = new VideoViewModel(video);
+            return PartialView("Edit", videoViewModel);
+        }
         //// Редактирование
+        [HttpPost]
+        [ValidateAntiForgeryToken]       
         public ActionResult Edit(VideoViewModel videoViewModel)
         {
             Video video = videoViewModel.GetVideo();
