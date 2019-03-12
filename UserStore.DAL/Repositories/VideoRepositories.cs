@@ -19,14 +19,14 @@ namespace UserStore.DAL.Repositories
             this.db = context;
         }
 
-        public IEnumerable<Video> GetAll()
+        public IQueryable<Video> GetAll()
         {
-            return db.Videos.Include("Author");
+            return db.Videos.AsNoTracking().Include("Author").AsQueryable();
         }
 
         public Video Get(int id)
         {
-            return db.Videos.Include("Author").FirstOrDefault(x=>x.Id == id);
+            return db.Videos.AsNoTracking().Include("Author").FirstOrDefault(x=>x.Id == id);
         }
 
         public void Create(Video video)
@@ -36,12 +36,16 @@ namespace UserStore.DAL.Repositories
 
         public void Update(Video video)
         {
-            db.Entry(video).State = EntityState.Modified;
+            db.Videos.Attach(video);
+            db.Entry(video).Property(x => x.Note).IsModified = true;
+            db.Entry(video).Property(x => x.Producer).IsModified = true;
+            db.Entry(video).Property(x => x.Title).IsModified = true;
+            db.Entry(video).Property(x => x.Year).IsModified = true;
         }
 
-        public IEnumerable<Video> Find(Func<Video, Boolean> predicate)
+        public IQueryable<Video> Find(Func<Video, Boolean> predicate)
         {
-            return db.Videos.Where(predicate).ToList();
+            return db.Videos.AsNoTracking().Where(predicate).AsQueryable();
         }
 
         public void Delete(int id)
