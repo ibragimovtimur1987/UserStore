@@ -14,7 +14,7 @@ namespace UserStore.BLL.Interfaces
         Task<OperationDetails> Create(UserDTO userDto);
         Task<ClaimsIdentity> Authenticate(UserDTO userDto);
         void AddVideo(Video video, string currentUserId, HttpPostedFileBase file);
-        void UpdateVideo(Video videoDTO);
+        void UpdateVideo(Video video, HttpPostedFileBase file);
         Video GetVideo(int? id);
         IEnumerable<Video> GetVideos();
         ApplicationUser GetApplicationUser(string UserId);

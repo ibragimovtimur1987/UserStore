@@ -32,7 +32,13 @@ namespace UserStore.Controllers
 
         public ActionResult Login()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                int? par = 1;
+                return RedirectToAction("Index", "Video", par);
+            }
+            else
+                return View();
         }
 
         [HttpPost]
